@@ -4,26 +4,81 @@
 	import type { Slide } from '$lib/types/slideshow.type';
 	import { getAlign, getHeight, getPosition, getRounded, getWidth } from '$lib/utils/object';
 	import { fade } from 'svelte/transition';
+	import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from '@lucide/svelte';
 
 	let slide: Slide = $derived($slideshow.slides[$workspace.page - 1]);
+	let containerWidth = $state(0);
+	let containerHeight = $state(0);
+
+	let slideDims = $derived.by(() => {
+		const hPadding = $workspace.fullscreen ? 0 : 64; // Increased padding for better aesthetics
+		const vPadding = $workspace.fullscreen ? 0 : 64;
+		const availW = containerWidth - hPadding;
+		const availH = containerHeight - vPadding;
+
+		if (!availW || !availH) return { w: 0, h: 0 };
+
+		const ratio = 16 / 9;
+		let w = availW;
+		let h = w / ratio;
+
+		if (h > availH) {
+			h = availH;
+			w = h * ratio;
+		}
+
+		return { w, h };
+	});
+
+	function onkeydown(event: KeyboardEvent) {
+		const isInput =
+			event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement;
+		if (isInput) return;
+
+		if (event.key === 'ArrowRight' || event.key === ' ') {
+			nextPage($slideshow.slides.length);
+		} else if (event.key === 'ArrowLeft') {
+			prevPage();
+		} else if (event.key === 'f') {
+			toggleFullscreen();
+		}
+	}
 </script>
 
+<svelte:window {onkeydown} />
+
 <div
-	class="relative flex h-screen w-screen flex-2 items-center justify-center bg-neutral-100"
+	bind:clientWidth={containerWidth}
+	bind:clientHeight={containerHeight}
+	class="relative flex h-full w-full min-w-0 flex-1 items-center justify-center bg-base-200 transition-all"
 	style:padding-inline={$workspace.fullscreen ? '0' : '1rem'}
 >
+	<!-- Dot Pattern Background -->
 	{#if !$workspace.fullscreen}
-		<h1 class="absolute top-0 right-0 p-4 text-2xl font-bold">
-			{$slideshow.title || 'Slideshow'}
+		<div
+			class="absolute inset-0 opacity-[0.2]"
+			style="background-image: radial-gradient(#000000 1px, transparent 1px); background-size: 20px 20px;"
+		></div>
+	{/if}
+
+	{#if !$workspace.fullscreen}
+		<h1
+			class="absolute top-6 right-8 text-3xl font-black tracking-tight text-base-content/20 select-none"
+		>
+			{$slideshow.title || 'Untitled'}
 		</h1>
 	{/if}
 	{#if slide}
 		<div
 			bind:offsetHeight={$workspace.height}
-			class="relative aspect-video max-h-full w-full overflow-hidden border transition-colors duration-200 ease-in-out"
+			class="relative overflow-hidden bg-white shadow-2xl transition-all duration-300 ease-out"
+			class:rounded-xl={!$workspace.fullscreen}
+			class:border={!$workspace.fullscreen}
+			class:border-base-300={!$workspace.fullscreen}
+			style:width={`${slideDims.w}px`}
+			style:height={`${slideDims.h}px`}
 			style:background={slide.color}
-			style:z-index={$workspace.fullscreen ? '40' : '0'}
-			style:max-width={$workspace.fullscreen ? '100%' : '768px'}
+			style:z-index={$workspace.fullscreen ? '40' : '10'}
 		>
 			<p>{slide.title}</p>
 			{#each slide.objects as object, i (object.id || i)}
@@ -58,13 +113,44 @@
 		</div>
 	{/if}
 
-	<div class="absolute bottom-0 left-0 flex gap-4 p-4">
-		<button onclick={prevPage}> Prev </button>
-		<p>{$workspace.page} / {$slideshow.slides.length || 1}</p>
-		<button onclick={() => nextPage($slideshow.slides.length)}> Next </button>
+	<!-- Floating Control Dock -->
+	<div
+		class="absolute bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/10 bg-black/80 px-4 py-2 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-black/90"
+		class:opacity-0={$workspace.fullscreen}
+		class:hover:opacity-100={$workspace.fullscreen}
+	>
+		<button
+			class="btn btn-circle text-white btn-ghost btn-sm hover:bg-white/20"
+			onclick={prevPage}
+			aria-label="Previous Slide"
+		>
+			<ChevronLeft size={18} />
+		</button>
 
-		<button onclick={toggleFullscreen} class="z-50">
-			{$workspace.fullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+		<span class="px-2 font-mono text-xs font-medium tracking-widest text-white/70">
+			{$workspace.page} / {$slideshow.slides.length || 1}
+		</span>
+
+		<button
+			class="btn btn-circle text-white btn-ghost btn-sm hover:bg-white/20"
+			onclick={() => nextPage($slideshow.slides.length)}
+			aria-label="Next Slide"
+		>
+			<ChevronRight size={18} />
+		</button>
+
+		<div class="mx-2 h-4 w-px bg-white/20"></div>
+
+		<button
+			class="btn btn-circle text-white btn-ghost btn-sm hover:bg-white/20"
+			onclick={toggleFullscreen}
+			aria-label="Toggle Fullscreen"
+		>
+			{#if $workspace.fullscreen}
+				<Minimize2 size={16} />
+			{:else}
+				<Maximize2 size={16} />
+			{/if}
 		</button>
 	</div>
 </div>
