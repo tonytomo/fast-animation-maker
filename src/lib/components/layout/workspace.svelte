@@ -80,7 +80,15 @@
 			style:background={slide.color}
 			style:z-index={$workspace.fullscreen ? '40' : '10'}
 		>
-			<p>{slide.title}</p>
+			{#if !$workspace.fullscreen}
+				<div class="pointer-events-none absolute top-0 left-0 z-50 p-6">
+					<span
+						class="inline-block rounded-full border border-white/10 bg-black/40 px-4 py-1.5 text-xs font-medium tracking-wide text-white/90 shadow-sm backdrop-blur-md"
+					>
+						{slide.title}
+					</span>
+				</div>
+			{/if}
 			{#each slide.objects as object, i (object.id || i)}
 				{#if object.type === 'text'}
 					<p
