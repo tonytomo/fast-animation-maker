@@ -6,6 +6,11 @@
 </script>
 
 <svelte:head>
+	<title>Fast Animation Maker</title>
+	<meta
+		name="description"
+		content="Create stunning presentations using simple, natural language. No complex tools, just you and your ideas."
+	/>
 	<link rel="icon" href={favicon} />
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
