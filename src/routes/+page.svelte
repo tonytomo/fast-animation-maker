@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Code from '$lib/components/layout/code.svelte';
 	import Workspace from '$lib/components/layout/workspace.svelte';
 	import { BookOpen } from '@lucide/svelte';
@@ -10,7 +11,7 @@
 
 	<!-- Docs Link -->
 	<a
-		href="/docs"
+		href={resolve('/docs')}
 		class="btn absolute right-6 bottom-6 z-50 btn-circle shadow-lg transition-transform btn-neutral hover:scale-110"
 		title="Documentation"
 	>
