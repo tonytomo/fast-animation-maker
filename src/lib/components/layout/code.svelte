@@ -7,7 +7,9 @@
 	} from '$lib/stores/code.store';
 	import { workspace } from '$lib/stores/workspace.store';
 	import { onMount } from 'svelte';
-	import { FileCode, PanelLeftClose, PanelLeftOpen } from '@lucide/svelte';
+	import FileCode from '@lucide/svelte/icons/file-code';
+	import PanelLeftClose from '@lucide/svelte/icons/panel-left-close';
+	import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
 
 	let show = $state(true);
 	let debounce: NodeJS.Timeout;

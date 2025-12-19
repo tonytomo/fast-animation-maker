@@ -108,8 +108,17 @@ code.subscribe((value) => {
 			if (lowerLine === 'text') {
 				flushObject();
 				currentObject = {
-					id: '', x: 50, y: 50, alignX: 'c', alignY: 'c', // Base Object defaults
-					type: 'text', text: 'New Text', size: 16, weight: 400, level: 'p', color: 'black'
+					id: '',
+					x: 50,
+					y: 50,
+					alignX: 'c',
+					alignY: 'c', // Base Object defaults
+					type: 'text',
+					text: 'New Text',
+					size: 16,
+					weight: 400,
+					level: 'p',
+					color: 'black'
 				};
 				continue;
 			}
@@ -128,22 +137,20 @@ code.subscribe((value) => {
 				else if (lowerKey === 'size') {
 					const size = parseInt(val);
 					if (currentObject.type === 'text') currentObject.size = size;
-					else { currentObject.width = size; currentObject.height = size; }
-				}
-				else if (lowerKey === 'color' || lowerKey === 'background') {
+					else {
+						currentObject.width = size;
+						currentObject.height = size;
+					}
+				} else if (lowerKey === 'color' || lowerKey === 'background') {
 					if (currentObject.type === 'text') currentObject.color = val;
 					else currentObject.background = val;
-				}
-				else if (lowerKey === 'radius' || lowerKey === 'rounded') {
+				} else if (lowerKey === 'radius' || lowerKey === 'rounded') {
 					if (currentObject.type === 'rect') currentObject.rounded = parseInt(val);
-				}
-				else if (lowerKey === 'content' || lowerKey === 'text') {
+				} else if (lowerKey === 'content' || lowerKey === 'text') {
 					if (currentObject.type === 'text') currentObject.text = val;
-				}
-				else if (lowerKey === 'weight') {
+				} else if (lowerKey === 'weight') {
 					if (currentObject.type === 'text') currentObject.weight = parseInt(val);
-				}
-				else if (lowerKey === 'align') {
+				} else if (lowerKey === 'align') {
 					const parts = val.toLowerCase().split(' ');
 					const vMap: Record<string, string> = { top: 't', center: 'c', bottom: 'b' };
 					const hMap: Record<string, string> = { left: 'l', center: 'c', right: 'r' };
@@ -153,7 +160,7 @@ code.subscribe((value) => {
 					let hFound = 'c';
 
 					// If only one value provided (e.g. "center"), apply to both if valid, or just one
-					parts.forEach(p => {
+					parts.forEach((p) => {
 						if (vMap[p]) vFound = vMap[p];
 						if (hMap[p]) hFound = hMap[p];
 					});

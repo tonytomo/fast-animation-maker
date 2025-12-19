@@ -4,7 +4,10 @@
 	import type { Slide } from '$lib/types/slideshow.type';
 	import { getAlign, getHeight, getPosition, getRounded, getWidth } from '$lib/utils/object';
 	import { fade } from 'svelte/transition';
-	import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from '@lucide/svelte';
+	import ChevronLeft from '@lucide/svelte/icons/chevron-left';
+	import ChevronRight from '@lucide/svelte/icons/chevron-right';
+	import Maximize2 from '@lucide/svelte/icons/maximize-2';
+	import Minimize2 from '@lucide/svelte/icons/minimize-2';
 
 	let slide: Slide = $derived($slideshow.slides[$workspace.page - 1]);
 	let containerWidth = $state(0);

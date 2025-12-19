@@ -1,6 +1,11 @@
 <script lang="ts">
-	import { ArrowLeft, Copy, Check, Tv, Play, Box, Type } from '@lucide/svelte';
-	import { fade } from 'svelte/transition';
+	import { resolve } from '$app/paths';
+	import ArrowLeft from '@lucide/svelte/icons/arrow-left';
+	import Copy from '@lucide/svelte/icons/copy';
+	import Check from '@lucide/svelte/icons/check';
+	import Tv from '@lucide/svelte/icons/tv';
+	import Play from '@lucide/svelte/icons/play';
+	import Box from '@lucide/svelte/icons/box';
 
 	let copied = $state('');
 
@@ -25,7 +30,10 @@
 	<nav class="sticky top-0 z-50 w-full border-b border-base-300 bg-base-100/80 backdrop-blur-md">
 		<div class="container mx-auto flex h-16 items-center justify-between px-6">
 			<div class="flex items-center gap-3">
-				<a href="/" class="btn gap-2 text-base-content/70 btn-ghost btn-sm hover:text-primary">
+				<a
+					href={resolve('/')}
+					class="btn gap-2 text-base-content/70 btn-ghost btn-sm hover:text-primary"
+				>
 					<ArrowLeft size={18} />
 					Back to App
 				</a>

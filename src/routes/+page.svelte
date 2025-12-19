@@ -2,7 +2,7 @@
 	import { resolve } from '$app/paths';
 	import Code from '$lib/components/layout/code.svelte';
 	import Workspace from '$lib/components/layout/workspace.svelte';
-	import { BookOpen } from '@lucide/svelte';
+	import BookOpen from '@lucide/svelte/icons/book-open';
 </script>
 
 <main class="flex h-screen w-screen overflow-hidden bg-base-100">
