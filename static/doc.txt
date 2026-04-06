@@ -27,12 +27,12 @@ Every presentation strictly follows these rules:
 - `Align: [H] [V]` : Alignment relative to X/Y coordinates (e.g., 'center center', 'left top', 'right bottom').
 
 ## Specific Object Properties
-- `Width: [Number]` : Shape width in percentage (for Rectangles).
-- `Height: [Number]` : Shape height in percentage (for Rectangles).
-- `Radius: [Number]` : Border radius (for Rectangles).
-- `Size: [Number]` : Size in percentage or em (for Circles and Text).
+- `Width: [Number]` : Shape width in percentage 0-100 (for Rectangles).
+- `Height: [Number]` : Shape height in percentage 0-100 (for Rectangles).
+- `Radius: [Number]` : Border radius 0-20 (for Rectangles).
+- `Size: [Number]` : Size in percentage 0-8 (for Circles and Text).
 - `Content: [String]` : The actual text to display (for Text objects only).
-- `Weight: [Number]` : Font weight (for Text, e.g., 400, 700, bold).
+- `Weight: [Number]` : Font weight 0-10 (for Text).
 
 # ANIMATION MAGIC
 To animate an object, you MUST use the `Id` property. Place an object with the same `Id` on multiple consecutive slides but transition its properties (like X, Y, Size, Color, Width, Height) to create smooth animations. 
@@ -52,7 +52,7 @@ X: 50
 Y: 50
 Align: center center
 Color: white
-Weight: 700
+Weight: 7
 
 Slide: Start Morph
 
@@ -64,7 +64,7 @@ X: 50
 Y: 10
 Align: center center
 Color: yellow
-Weight: 700
+Weight: 7
 
 Circle
 Id: my-circle
@@ -83,7 +83,7 @@ X: 50
 Y: 10
 Align: center center
 Color: white
-Weight: 700
+Weight: 7
 
 Circle
 Id: my-circle

@@ -137,7 +137,9 @@ code.subscribe((value) => {
 				else if (lowerKey === 'size') {
 					const size = parseInt(val);
 					if (currentObject.type === 'text') currentObject.size = size;
-					else {
+					else if (currentObject.type === 'circle') {
+						currentObject.width = size;
+					} else {
 						currentObject.width = size;
 						currentObject.height = size;
 					}
