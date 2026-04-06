@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 import { slideshow } from './slides.store';
 import { defaultShape } from '$lib/config/shape.default';
 
-export const codeEditor = writable<HTMLTextAreaElement | null>(null);
+export const codeEditor = writable<HTMLElement | null>(null);
 export const code = writable('');
 
 export function saveToLocalStorage(code: string) {

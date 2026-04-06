@@ -35,7 +35,9 @@
 
 	function onkeydown(event: KeyboardEvent) {
 		const isInput =
-			event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement;
+			event.target instanceof HTMLInputElement ||
+			event.target instanceof HTMLTextAreaElement ||
+			(event.target instanceof HTMLElement && event.target.isContentEditable);
 		if (isInput) return;
 
 		if (event.key === 'ArrowRight' || event.key === ' ') {
