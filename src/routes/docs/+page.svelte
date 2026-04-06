@@ -61,7 +61,7 @@
 			</div>
 			<h1 class="mb-6 text-4xl font-black tracking-tight sm:text-6xl">
 				Write Code.<br />
-				<span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+				<span class="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent"
 					>See Magic.</span
 				>
 			</h1>
@@ -196,7 +196,7 @@ Weight: 700</pre>
 			</div>
 
 			<div
-				class="card overflow-hidden border border-primary/20 bg-gradient-to-br from-base-100 to-primary/5 shadow-lg"
+				class="card overflow-hidden border border-primary/20 bg-linear-to-br from-base-100 to-primary/5 shadow-lg"
 			>
 				<div class="card-body">
 					<h3 class="mb-4 text-lg font-bold">How to animate objects?</h3>
